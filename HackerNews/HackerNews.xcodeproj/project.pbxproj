@@ -13,6 +13,7 @@
 		B534FD8F22C4D4E0000B125E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B534FD8E22C4D4E0000B125E /* Assets.xcassets */; };
 		B534FD9222C4D4E0000B125E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B534FD9022C4D4E0000B125E /* LaunchScreen.storyboard */; };
 		B534FDA822C4D4E1000B125E /* HackerNewsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FDA722C4D4E1000B125E /* HackerNewsUITests.swift */; };
+		B534FDF922C62A04000B125E /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FDF822C62A04000B125E /* UIView+constraints.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		B534FDA322C4D4E1000B125E /* HackerNewsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerNewsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B534FDA722C4D4E1000B125E /* HackerNewsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsUITests.swift; sourceTree = "<group>"; };
 		B534FDA922C4D4E1000B125E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B534FDF822C62A04000B125E /* UIView+constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			children = (
 				B534FD8922C4D4DE000B125E /* MainViewController.swift */,
 				B534FD8B22C4D4DE000B125E /* Main.storyboard */,
+				B534FDF722C629CD000B125E /* Extensions */,
 				B534FDF522C627D9000B125E /* Supporting Files */,
 				B534FD9322C4D4E0000B125E /* Info.plist */,
 			);
@@ -128,6 +131,14 @@
 				B534FD9022C4D4E0000B125E /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B534FDF722C629CD000B125E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B534FDF822C62A04000B125E /* UIView+constraints.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +274,7 @@
 			files = (
 				B534FD8A22C4D4DE000B125E /* MainViewController.swift in Sources */,
 				B534FD8822C4D4DE000B125E /* AppDelegate.swift in Sources */,
+				B534FDF922C62A04000B125E /* UIView+constraints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
