@@ -12,7 +12,6 @@
 		B534FD8D22C4D4DE000B125E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B534FD8B22C4D4DE000B125E /* Main.storyboard */; };
 		B534FD8F22C4D4E0000B125E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B534FD8E22C4D4E0000B125E /* Assets.xcassets */; };
 		B534FD9222C4D4E0000B125E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B534FD9022C4D4E0000B125E /* LaunchScreen.storyboard */; };
-		B534FD9D22C4D4E1000B125E /* HackerNewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD9C22C4D4E1000B125E /* HackerNewsTests.swift */; };
 		B534FDA822C4D4E1000B125E /* HackerNewsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FDA722C4D4E1000B125E /* HackerNewsUITests.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +41,6 @@
 		B534FD9122C4D4E0000B125E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B534FD9322C4D4E0000B125E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B534FD9822C4D4E1000B125E /* HackerNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B534FD9C22C4D4E1000B125E /* HackerNewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsTests.swift; sourceTree = "<group>"; };
 		B534FD9E22C4D4E1000B125E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../Info.plist; sourceTree = "<group>"; };
 		B534FDA322C4D4E1000B125E /* HackerNewsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerNewsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B534FDA722C4D4E1000B125E /* HackerNewsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsUITests.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 		B534FD9B22C4D4E1000B125E /* HackerNewsTests */ = {
 			isa = PBXGroup;
 			children = (
-				B534FD9C22C4D4E1000B125E /* HackerNewsTests.swift */,
 			);
 			path = HackerNewsTests;
 			sourceTree = "<group>";
@@ -273,7 +270,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B534FD9D22C4D4E1000B125E /* HackerNewsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
