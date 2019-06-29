@@ -18,6 +18,16 @@ class HackerNewsUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        XCTAssertEqual(app.staticTexts.count, 6, "Wrong number of labels")
+        XCTAssertEqual(app.staticTexts.count, 12, "Wrong number of labels")
+
+        let titleLabel = "How AMD Gave China the 'Keys to the Kingdom'"
+        let title = app.staticTexts[titleLabel].firstMatch
+        XCTAssertTrue(title.exists, "Element title doesn't exist")
+        XCTAssertEqual(title.label, titleLabel, "Wrong text in title")
+
+        let commentLabel = "108 Comments"
+        let comment = app.staticTexts[commentLabel].firstMatch
+        XCTAssertTrue(comment.exists, "Element comment doesn't exist")
+        XCTAssertEqual(comment.label, commentLabel, "Wrong text in comment")
     }
 }
