@@ -37,6 +37,7 @@ class NewsItemsViewController: UIViewController, Filterable {
 
         newsItemsTableView.dataSource = self
         newsItemsTableView.delegate = self
+        newsItemsTableView.keyboardDismissMode = .onDrag
     }
 
     override func viewDidLoad() {
