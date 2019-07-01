@@ -21,6 +21,11 @@ class MainViewController: UINavigationController {
         return searchBar
     }()
 
+    func push(to detailViewController: UIViewController) {
+        searchBar.isHidden = true
+        pushViewController(detailViewController, animated: true)
+    }
+
     private func setupViews() {
         navigationBar.addSubview(searchBar)
         searchBar.constrain(to: navigationBar, margin: 5)

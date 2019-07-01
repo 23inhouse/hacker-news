@@ -11,7 +11,7 @@ import UIKit
 class NewsItemsViewController: UIViewController, Filterable {
     var newsItemsTableView: NewsItemsView { return self.view as! NewsItemsView }
 
-    private let reuseIdentifier = "cell"
+    private let reuseIdentifier = "newsItemCell"
 
     internal var newsItems: [HackerNewsItem] = [
         HackerNewsItem(title: "Open Letter from the OpenID Foundation to Apple Regarding Sign in with Apple", commentCount: 55),
@@ -68,5 +68,11 @@ extension NewsItemsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newsItem = filteredNewsItems()[indexPath.row]
+        let commentsVC = CommentsViewController(newsItem)
+        navigationController?.pushViewController(commentsVC, animated: true)
     }
 }

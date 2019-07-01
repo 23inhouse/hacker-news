@@ -14,21 +14,21 @@ class HackerNewsUITests: XCTestCase {
         continueAfterFailure = false
     }
 
-    func testSearch() {
+    func testMainView() {
         let app = XCUIApplication()
         app.launch()
 
         XCTAssertEqual(app.staticTexts.count, 12, "Wrong number of labels")
 
-        let titleLabel = "How AMD Gave China the 'Keys to the Kingdom'"
-        let title = app.staticTexts[titleLabel].firstMatch
-        XCTAssertTrue(title.exists, "Element title doesn't exist")
-        XCTAssertEqual(title.label, titleLabel, "Wrong text in title")
+        XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
+        XCTAssertStaticText("comment count", with: "108 Comments")
+    }
 
-        let commentLabel = "108 Comments"
-        let comment = app.staticTexts[commentLabel].firstMatch
-        XCTAssertTrue(comment.exists, "Element comment doesn't exist")
-        XCTAssertEqual(comment.label, commentLabel, "Wrong text in comment")
+    func testSearch() {
+        let app = XCUIApplication()
+        app.launch()
+
+        XCTAssertEqual(app.staticTexts.count, 12, "Wrong number of labels")
 
         let search = app.searchFields.element
         XCTAssertTrue(search.exists, "Element search doesn't exist")
@@ -37,15 +37,10 @@ class HackerNewsUITests: XCTestCase {
         search.tap()
         search.typeText("space station")
 
-        let searchedTitleLabel = "The International Space Station is growing mold, inside and outside"
-        let searchedTitle = app.staticTexts[searchedTitleLabel].firstMatch
-        XCTAssertTrue(searchedTitle.exists, "Element searched title doesn't exist")
-        XCTAssertEqual(searchedTitle.label, searchedTitleLabel, "Wrong text in title")
-
-        let searchedCommentLabel = "66 Comments"
-        let searchedComment = app.staticTexts[searchedCommentLabel].firstMatch
-        XCTAssertTrue(searchedComment.exists, "Element searched comment doesn't exist")
-        XCTAssertEqual(searchedComment.label, searchedCommentLabel, "Wrong text in comment")
+        XCTAssertStaticText("searched title") {
+            "The International Space Station is growing mold, inside and outside"
+        }
+        XCTAssertStaticText("searched comment count", with: "66 Comments")
 
         search.buttons.element.tap()
         search.typeText("space")
@@ -54,5 +49,70 @@ class HackerNewsUITests: XCTestCase {
         search.buttons.element.tap()
         search.typeText("the to")
         XCTAssertEqual(app.staticTexts.count, 4, "Wrong number of labels")
+
+        search.buttons.element.tap()
+        search.typeText("Gave China")
+        XCTAssertEqual(app.staticTexts.count, 2, "Wrong number of labels")
+
+        let title = XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
+        title.tap()
+
+        XCTAssertFalse(app.searchFields.element.exists, "Element search shouldn't be visible")
+
+        app.buttons["Back"].firstMatch.tap()
+
+        XCTAssertTrue(app.searchFields.element.exists, "Element search should be visible")
+    }
+
+    func testComments() {
+        let app = XCUIApplication()
+        app.launch()
+
+        let title = XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
+        title.tap()
+
+        let username = XCTAssertStaticText("username", with: "simonh")
+        XCTAssertStaticText("time since", with: "11 hours ago")
+
+        XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
+        XCTAssertStaticText("comment count", with: "108 Comments")
+
+        XCTAssertStaticText("username", with: "bifel")
+        XCTAssertStaticText("time since", with: "30 minutes ago")
+        XCTAssertStaticText("comment body") {
+            """
+            Wouldn't putting "everyone in a numbered sequence unknown to them" require a random number, which we don't have?
+            """
+        }
+
+        XCTAssertEqual(app.staticTexts.count, 14, "Wrong number of labels")
+        username.tap()
+
+        var textCount = 0
+        for index in 0 ..< app.staticTexts.count {
+            if app.staticTexts.element(boundBy: index).isHittable {
+                textCount += 1
+            }
+        }
+        XCTAssertEqual(textCount, 7, "Wrong number of labels")
+    }
+
+    @discardableResult
+    func XCTAssertStaticText(_ type: String, with label: String, file: StaticString = #file, line: UInt = #line) -> XCUIElement {
+        let staticTextElement = XCUIApplication().staticTexts[label].firstMatch
+
+        let existenceErrorMessage = "Can't find [\(type)] with [\(label)]"
+        XCTAssertTrue(staticTextElement.exists, existenceErrorMessage, file: file, line: line)
+        let labelErrorMessage = "Wrong content in [\(type)]\n\nExpected: [\(label)]\n\nFound: [\(staticTextElement.label)]"
+        XCTAssertEqual(staticTextElement.label, label, labelErrorMessage, file: file, line: line)
+
+        return staticTextElement
+    }
+
+    @discardableResult
+    func XCTAssertStaticText(_ type: String, file: StaticString = #file, line: UInt = #line, contentClosure: () -> String) -> XCUIElement {
+
+        let label = contentClosure()
+        return XCTAssertStaticText(type, with: label, file: file, line: line)
     }
 }
