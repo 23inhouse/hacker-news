@@ -13,7 +13,7 @@ extension Date {
         guard fromDate < Date() else { return "Back to the future" }
 
         let allComponents: Set<Calendar.Component> = [.second, .minute, .hour, .day, .weekOfYear, .month, .year]
-        let components:DateComponents = Calendar.current.dateComponents(allComponents, from: fromDate, to: Date())
+        let components: DateComponents = Calendar.current.dateComponents(allComponents, from: fromDate, to: Date())
 
         for (period, timeAgo) in [
             ("year", components.year ?? 0),
@@ -23,10 +23,8 @@ extension Date {
             ("hour", components.hour ?? 0),
             ("minute", components.minute ?? 0),
             ("second", components.second ?? 0),
-            ] {
-                if timeAgo > 0 {
-                    return "\(timeAgo.of(period)) ago"
-                }
+            ] where timeAgo > 0 {
+                return "\(timeAgo.of(period)) ago"
         }
 
         return "Just now"

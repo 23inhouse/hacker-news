@@ -9,7 +9,6 @@
 import XCTest
 @testable import HackerNews
 
-
 struct MockTogglable: Togglable {
     var flattenedComments: [HackerNewsComment]
 

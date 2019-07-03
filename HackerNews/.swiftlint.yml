@@ -1,0 +1,9 @@
+disabled_rules: # rule identifiers to exclude from running
+  - trailing_comma
+  - line_length
+  - force_cast
+  - identifier_name
+included:
+  - HackerNews
+  - HackerNewsTests
+  - HackerNewsUITests

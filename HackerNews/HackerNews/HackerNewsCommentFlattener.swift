@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol Flattenable {
     var comments: [HackerNewsComment] { get }
 }
