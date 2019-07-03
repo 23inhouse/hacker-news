@@ -1,0 +1,20 @@
+PODS:
+  - Firebase (2.5.0)
+  - SwiftLint (0.33.0)
+
+DEPENDENCIES:
+  - Firebase (= 2.5.0)
+  - SwiftLint
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Firebase
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Firebase: 744617c0733b45198f9486ebd5cac64ec2d10d79
+  SwiftLint: fed9c66336e41fc74dc48a73678380718f0c8b0e
+
+PODFILE CHECKSUM: f705fcad5af8151d796a62cf3e1a5559d6d867e7
+
+COCOAPODS: 1.7.3

@@ -7,3 +7,5 @@ included:
   - HackerNews
   - HackerNewsTests
   - HackerNewsUITests
+excluded:
+  - Pods
