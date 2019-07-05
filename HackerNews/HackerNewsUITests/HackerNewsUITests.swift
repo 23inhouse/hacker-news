@@ -52,6 +52,10 @@ class HackerNewsUITests: XCTestCase {
         XCTAssertEqual(app.staticTexts.count, 4, "Wrong number of labels")
 
         search.buttons.element.tap()
+        search.typeText("000")
+        XCTAssertEqual(app.staticTexts.count, 0, "Wrong number of labels")
+
+        search.buttons.element.tap()
         search.typeText("Gave China")
         XCTAssertEqual(app.staticTexts.count, 2, "Wrong number of labels")
 

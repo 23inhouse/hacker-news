@@ -24,6 +24,8 @@ class NewsItemsViewController: UIViewController, Filterable {
     var newsItemFilter: String = "" {
         didSet {
             newsItemsTableView.reloadData()
+            guard filteredNewsItems().count > 0 else { return }
+            newsItemsTableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
         }
     }
 
