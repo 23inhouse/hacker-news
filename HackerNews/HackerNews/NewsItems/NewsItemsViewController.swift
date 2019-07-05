@@ -10,6 +10,7 @@ import UIKit
 
 class NewsItemsViewController: UIViewController, Filterable {
     var newsItemsTableView: NewsItemsView { return self.view as! NewsItemsView }
+    let refreshControl = UIRefreshControl()
 
     private let reuseIdentifier = "newsItemCell"
 
@@ -39,6 +40,15 @@ class NewsItemsViewController: UIViewController, Filterable {
         newsItemsTableView.dataSource = self
         newsItemsTableView.delegate = self
         newsItemsTableView.keyboardDismissMode = .onDrag
+
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        newsItemsTableView.addSubview(refreshControl)
+    }
+
+    @objc private func refresh(sender: AnyObject) {
+        firebaseRequest.call()
+        refreshControl.endRefreshing()
     }
 
     override func viewDidLoad() {

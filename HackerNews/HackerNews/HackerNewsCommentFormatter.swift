@@ -39,6 +39,7 @@ struct HackerNewsCommentFormatter {
 
     static func call(_ text: String) -> NSAttributedString {
         let texts = text.htmlToString.split(separator: "\n")
+
         let mutatableText = NSMutableAttributedString(string: "")
         texts.enumerated().forEach { (i, text) in
             var text = NSMutableAttributedString(string: String(text))

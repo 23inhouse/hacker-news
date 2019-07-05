@@ -10,6 +10,7 @@ import UIKit
 
 class CommentsViewController: UIViewController, Flattenable, Togglable {
     var commentsTableView: CommentsView { return self.view as! CommentsView }
+    let refreshControl = UIRefreshControl()
 
     private let reuseIdentifier = "commentCell"
     private let reuseHeaderIdentifier = "newsItemCell"
@@ -39,7 +40,16 @@ class CommentsViewController: UIViewController, Flattenable, Togglable {
         let commentCount = newsItem.commentCount
         self.comments = [HackerNewsComment](repeating: HackerNewsComment.Empty, count: commentCount)
 
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        commentsTableView.addSubview(refreshControl)
+
         firebaseRequest.call(newsItem.id)
+    }
+
+    @objc private func refresh(sender: AnyObject) {
+        firebaseRequest.call(newsItem.id)
+        refreshControl.endRefreshing()
     }
 
     override func viewDidLoad() {
