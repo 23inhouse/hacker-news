@@ -11,6 +11,8 @@ import Foundation
 struct HackerNewsComment {
     static var identiferFactory = 0
 
+    static let Empty = HackerNewsComment(body: " ", username: " ", timestamp: nil)
+
     let identifier: Int
     let body: NSAttributedString
     let username: String
@@ -70,6 +72,8 @@ struct HackerNewsComment {
 }
 
 class HackerNewsFirebaseComment {
+    static let Empty = { id in HackerNewsFirebaseComment(id) }
+
     let id: Int
     let author: String
     let text: String
@@ -96,4 +100,19 @@ class HackerNewsFirebaseComment {
         self.kids = kids
         self.timestamp = Date(timeIntervalSince1970: time)
     }
+
+    init(_ parentId: Int) {
+        self.id = 0
+        self.author = ""
+        self.text = ""
+        self.parent = parentId
+        self.kids = nil
+        self.timestamp = nil
+    }
+}
+
+extension HackerNewsComment: Datable {
+}
+
+extension HackerNewsFirebaseComment: Datable {
 }

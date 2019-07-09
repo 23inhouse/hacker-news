@@ -9,6 +9,8 @@
 import Foundation
 
 class HackerNewsItem {
+    static let Empty = HackerNewsItem(title: "", commentCount: 0)
+
     let id: Int
     let url: String?
     let title: String
@@ -45,4 +47,7 @@ class HackerNewsItem {
         self.kids = [Int]()
         self.commentCount = commentCount
     }
+}
+
+extension HackerNewsItem: Datable {
 }
