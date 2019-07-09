@@ -12,7 +12,7 @@ struct HackerNewsComment {
     static var identiferFactory = 0
 
     let identifier: Int
-    let body: String
+    let body: NSAttributedString
     let username: String
     let timestamp: Date
     let comments: [HackerNewsComment]?
@@ -28,7 +28,7 @@ struct HackerNewsComment {
 
     init(body: String, username: String, timestamp: Date, parentIdentifier: Int? = nil, nestedLevel: Int = 0, comments: (Int, Int) -> [HackerNewsComment]) {
         self.identifier = HackerNewsComment.getUniqueIdentifier()
-        self.body = body
+        self.body = NSAttributedString(string: body)
         self.username = username
         self.timestamp = timestamp
         self.parentIdentifier = parentIdentifier

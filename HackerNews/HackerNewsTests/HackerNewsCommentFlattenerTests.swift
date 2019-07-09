@@ -58,7 +58,7 @@ class HackerNewsCommentFlattenerTests: XCTestCase {
             let (body, parentIdentifier, nestedLevel) = expectation
             let flattener = HackerNewsCommentFlattener(flattenable)
             let comment = flattener.flattenedComments()[i]
-            XCTAssertEqual(comment.body, body, "Wrong body value")
+            XCTAssertEqual(comment.body, NSAttributedString(string: body), "Wrong body value")
             XCTAssertEqual(comment.parentIdentifier, parentIdentifier, "Wrong parentIdentifer for \(comment.body)")
             XCTAssertEqual(comment.nestedLevel, nestedLevel, "Wrong nestedLevel for \(comment.body)")
         }

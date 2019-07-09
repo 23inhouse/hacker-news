@@ -22,8 +22,8 @@ class CommentViewCell: UITableViewCell {
             }()
         }
     }
-    var commentText: String = " " {
-        didSet { comment.textContent = commentText }
+    var commentText: NSAttributedString = NSAttributedString(string: " ") {
+        didSet { comment.attributedContent = commentText }
     }
 
     var isFolded: Bool = false {
@@ -87,7 +87,7 @@ class CommentViewCell: UITableViewCell {
 
     lazy var comment: StyledCellLabel = {
         let label = StyledCellLabel()
-        label.textContent = commentText
+        label.attributedContent = commentText
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.font = UIFont.preferredFont(forTextStyle: .body)
