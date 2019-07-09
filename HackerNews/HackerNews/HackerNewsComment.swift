@@ -46,3 +46,32 @@ struct HackerNewsComment {
         self.nestedLevel = nestedLevel
     }
 }
+
+class HackerNewsFirebaseComment {
+    let id: Int
+    let author: String
+    let text: String
+    let parent: Int
+    let kids: [Int]?
+    let timestamp: Date?
+    var data: [String: Any]?
+
+    init?(data: Snapshottable?) {
+        guard
+            let data = data?.value as? [String: Any],
+            let id = data[FirebaseConfig.Key.Id] as? Int,
+            let author = data[FirebaseConfig.Key.Author] as? String?,
+            let text = data[FirebaseConfig.Key.Text] as? String?,
+            let parent = data[FirebaseConfig.Key.Parent] as? Int,
+            let kids = data[FirebaseConfig.Key.Kids] as? [Int]?,
+            let time = data[FirebaseConfig.Key.Time] as? Double
+            else { return nil }
+        self.data = data
+        self.id = id
+        self.author = author ?? "[deleted]"
+        self.text = text ?? ""
+        self.parent = parent
+        self.kids = kids
+        self.timestamp = Date(timeIntervalSince1970: time)
+    }
+}
