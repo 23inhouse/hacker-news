@@ -14,7 +14,7 @@ struct HackerNewsComment {
     let identifier: Int
     let body: NSAttributedString
     let username: String
-    let timestamp: Date
+    let timestamp: Date?
     let comments: [HackerNewsComment]?
     let parentIdentifier: Int?
     let nestedLevel: Int
@@ -36,8 +36,9 @@ struct HackerNewsComment {
         self.comments = comments(identifier, nestedLevel + 1)
     }
 
-    init(body: String, username: String, timestamp: Date, parentIdentifier: Int? = nil, nestedLevel: Int = 0) {
-        self.identifier = HackerNewsComment.getUniqueIdentifier()
+    init(body: NSAttributedString, username: String, timestamp: Date?, identifier: Int? = nil, parentIdentifier: Int? = nil, nestedLevel: Int = 0, comments: ((Int, Int) -> [HackerNewsComment])? = nil) {
+        let identifier = identifier ?? HackerNewsComment.getUniqueIdentifier()
+        self.identifier = identifier
         self.body = body
         self.username = username
         self.timestamp = timestamp
