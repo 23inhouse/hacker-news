@@ -36,6 +36,7 @@
 		B5FA0A2F22C9083B00AF4AEE /* HackerNewsCommentFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA0A2E22C9083B00AF4AEE /* HackerNewsCommentFlattener.swift */; };
 		B5FA0A3122C909EC00AF4AEE /* HackerNewsCommentFlattenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA0A3022C909EC00AF4AEE /* HackerNewsCommentFlattenerTests.swift */; };
 		B5FA0A3322C945A100AF4AEE /* NewsItemViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA0A3222C945A100AF4AEE /* NewsItemViewHeaderCell.swift */; };
+		B5FFF89822CE15DD006A16A2 /* String+html.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FFF89722CE15DD006A16A2 /* String+html.swift */; };
 		F52F71A894D93A10881804BB /* Pods_HackerNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D93F30EF91447F427843FD /* Pods_HackerNews.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +94,7 @@
 		B5FA0A2E22C9083B00AF4AEE /* HackerNewsCommentFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsCommentFlattener.swift; sourceTree = "<group>"; };
 		B5FA0A3022C909EC00AF4AEE /* HackerNewsCommentFlattenerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsCommentFlattenerTests.swift; sourceTree = "<group>"; };
 		B5FA0A3222C945A100AF4AEE /* NewsItemViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemViewHeaderCell.swift; sourceTree = "<group>"; };
+		B5FFF89722CE15DD006A16A2 /* String+html.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+html.swift"; sourceTree = "<group>"; };
 		E8D93F30EF91447F427843FD /* Pods_HackerNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HackerNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC55679254254437A2707FDB /* Pods-HackerNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackerNews.release.xcconfig"; path = "Target Support Files/Pods-HackerNews/Pods-HackerNews.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -201,6 +203,7 @@
 			children = (
 				B5FA0A2122C8F1A300AF4AEE /* Date+timeSince.swift */,
 				B5FA0A2322C8F51300AF4AEE /* Int+of.swift */,
+				B5FFF89722CE15DD006A16A2 /* String+html.swift */,
 				B534FDF822C62A04000B125E /* UIView+constraints.swift */,
 			);
 			path = Extensions;
@@ -474,6 +477,7 @@
 				B534FE0D22C79DB8000B125E /* HackerNewsFilter.swift in Sources */,
 				B5A6BEBE22CA0E7300BE5E28 /* HackerNewsCommentToggler.swift in Sources */,
 				B5FA0A3322C945A100AF4AEE /* NewsItemViewHeaderCell.swift in Sources */,
+				B5FFF89822CE15DD006A16A2 /* String+html.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
