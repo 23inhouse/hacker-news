@@ -47,6 +47,12 @@ class CommentViewCell: UITableViewCell {
         bottomAnchorConstraint,
     ]
 
+    lazy var contentConstraints: [NSLayoutConstraint] = [
+        username.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
+        timestamp.widthAnchor.constraint(greaterThanOrEqualToConstant: 75),
+        comment.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
+    ]
+
     let wrapper = UIView ()
 
     private let stack: UIStackView = {
@@ -99,6 +105,8 @@ class CommentViewCell: UITableViewCell {
         let constant = whitespaceSize + (CGFloat(nestedLevel) * indentationWidth)
         leadingAnchorConstraint.constant = constant
         separatorInset = UIEdgeInsets(top: 0, left: constant, bottom: 0, right: 0)
+
+        NSLayoutConstraint.deactivate(contentConstraints)
     }
 
     private func setupViews() {
@@ -113,6 +121,7 @@ class CommentViewCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         bottomAnchorConstraint.priority = .fittingSizeLevel
         NSLayoutConstraint.activate(stackConstraints)
+        NSLayoutConstraint.activate(contentConstraints)
 
         stack.spacing = whitespaceSize
     }

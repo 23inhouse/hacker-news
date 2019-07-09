@@ -13,14 +13,13 @@ class NewsItemsViewController: UIViewController, Filterable {
 
     private let reuseIdentifier = "newsItemCell"
 
-    internal var newsItems: [HackerNewsItem] = [
-        HackerNewsItem(title: "Open Letter from the OpenID Foundation to Apple Regarding Sign in with Apple", commentCount: 55),
-        HackerNewsItem(title: "NASA plans to launch a spacecraft to Titan", commentCount: 171),
-        HackerNewsItem(title: "How AMD Gave China the 'Keys to the Kingdom'", commentCount: 108),
-        HackerNewsItem(title: "The International Space Station is growing mold, inside and outside", commentCount: 66),
-        HackerNewsItem(title: "The Evolution of Lisp (1993) [pdf]", commentCount: 0),
-        HackerNewsItem(title: "Most Unit Testing Is Waste (2014) [pdf]", commentCount: 93),
-    ]
+    private lazy var firebaseRequest = FirebaseAPI(self)
+
+    internal var newsItems = [HackerNewsItem](repeating: HackerNewsItem.Empty, count: 6) {
+        didSet {
+            newsItemsTableView.reloadData()
+        }
+    }
 
     var newsItemFilter: String = "" {
         didSet {
@@ -44,6 +43,24 @@ class NewsItemsViewController: UIViewController, Filterable {
         super.viewDidLoad()
 
         setupViews()
+
+        firebaseRequest.call()
+    }
+}
+
+extension NewsItemsViewController: Requestable {
+
+    func setData(_ data: [Datable]) {
+        newsItems = data as! [HackerNewsItem]
+    }
+
+    func setData(at index: Int, with data: Datable) {
+        newsItems[index] = data as! HackerNewsItem
+    }
+
+    func reloadRow(at index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        newsItemsTableView.reloadRows(at: [indexPath], with: .fade)
     }
 }
 
@@ -60,8 +77,10 @@ extension NewsItemsViewController: UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! NewsItemViewCell
 
         let newsItem = filteredNewsItems()[indexPath.row]
-        cell.titleText = newsItem.title
-        cell.commentText = "\(newsItem.commentCount) Comments"
+        if !newsItem.title.isEmpty {
+            cell.titleText = newsItem.title
+            cell.commentText = "\(newsItem.commentCount) Comments"
+        }
 
         return cell
     }

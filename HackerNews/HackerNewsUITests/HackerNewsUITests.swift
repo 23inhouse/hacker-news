@@ -10,12 +10,14 @@ import XCTest
 
 class HackerNewsUITests: XCTestCase {
 
+    let app = XCUIApplication()
+
     override func setUp() {
         continueAfterFailure = false
+        app.launchArguments = ["-firebaseTest"]
     }
 
     func testMainView() {
-        let app = XCUIApplication()
         app.launch()
 
         XCTAssertEqual(app.staticTexts.count, 12, "Wrong number of labels")
@@ -25,7 +27,6 @@ class HackerNewsUITests: XCTestCase {
     }
 
     func testSearch() {
-        let app = XCUIApplication()
         app.launch()
 
         XCTAssertEqual(app.staticTexts.count, 12, "Wrong number of labels")
@@ -65,11 +66,12 @@ class HackerNewsUITests: XCTestCase {
     }
 
     func testComments() {
-        let app = XCUIApplication()
         app.launch()
 
         let title = XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
         title.tap()
+
+        sleep(1)
 
         let username = XCTAssertStaticText("username", with: "simonh")
         XCTAssertStaticText("time since", with: "11 hours ago")
