@@ -26,14 +26,15 @@ struct HackerNewsComment {
         return identiferFactory
     }
 
-    init(body: String, username: String, timestamp: Date, parentIdentifier: Int? = nil, nestedLevel: Int = 0, comments: (Int, Int) -> [HackerNewsComment]) {
-        self.identifier = HackerNewsComment.getUniqueIdentifier()
+    init(body: String, username: String, timestamp: Date?, identifier: Int? = nil, parentIdentifier: Int? = nil, nestedLevel: Int = 0, comments: ((Int, Int) -> [HackerNewsComment])? = nil) {
+        let identifier = identifier ?? HackerNewsComment.getUniqueIdentifier()
+        self.identifier = identifier
         self.body = NSAttributedString(string: body)
         self.username = username
         self.timestamp = timestamp
         self.parentIdentifier = parentIdentifier
         self.nestedLevel = nestedLevel
-        self.comments = comments(identifier, nestedLevel + 1)
+        self.comments = comments?(identifier, nestedLevel + 1)
     }
 
     init(body: NSAttributedString, username: String, timestamp: Date?, identifier: Int? = nil, parentIdentifier: Int? = nil, nestedLevel: Int = 0, comments: ((Int, Int) -> [HackerNewsComment])? = nil) {
@@ -42,9 +43,29 @@ struct HackerNewsComment {
         self.body = body
         self.username = username
         self.timestamp = timestamp
-        self.comments = nil
         self.parentIdentifier = parentIdentifier
         self.nestedLevel = nestedLevel
+        self.comments = comments?(identifier, nestedLevel + 1)
+    }
+
+    init(from other: HackerNewsComment, comments: (Int, Int) -> [HackerNewsComment]) {
+        self.identifier = other.identifier
+        self.body = other.body
+        self.username = other.username
+        self.timestamp = other.timestamp
+        self.parentIdentifier = other.parentIdentifier
+        self.nestedLevel = other.nestedLevel
+        self.comments = comments(identifier, other.nestedLevel + 1)
+    }
+
+    init(from other: HackerNewsComment, comments: [HackerNewsComment]) {
+        self.identifier = other.identifier
+        self.body = other.body
+        self.username = other.username
+        self.timestamp = other.timestamp
+        self.parentIdentifier = other.parentIdentifier
+        self.nestedLevel = other.nestedLevel
+        self.comments = comments
     }
 }
 
