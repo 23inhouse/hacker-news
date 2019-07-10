@@ -87,7 +87,7 @@ class TestFirebaseQuery: Queryable {
         var value: [String: Any]
         value = [
             FirebaseConfig.Key.Id: id,
-            FirebaseConfig.Key.Url: "google.com",
+            FirebaseConfig.Key.Url: "https://127.0.0.1",
             FirebaseConfig.Key.Title: story.title,
             FirebaseConfig.Key.Author: "Mac",
             FirebaseConfig.Key.Score: 0,

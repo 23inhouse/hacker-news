@@ -17,6 +17,9 @@ class NewsItemViewHeaderCell: UITableViewHeaderFooterView {
     var commentText: String = " " {
         didSet { comment.textContent = commentText }
     }
+    var urlText: String = " " {
+        didSet { url.textContent = urlText }
+    }
 
     private let stack: UIStackView = {
         let stack = UIStackView()
@@ -34,6 +37,14 @@ class NewsItemViewHeaderCell: UITableViewHeaderFooterView {
         return label
     }()
 
+    private let metadataStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .equalSpacing
+        return stack
+    }()
+
     lazy var comment: StyledCellLabel = {
         let label = StyledCellLabel()
         label.textContent = commentText
@@ -42,10 +53,20 @@ class NewsItemViewHeaderCell: UITableViewHeaderFooterView {
         return label
     }()
 
+    lazy var url: StyledCellLabel = {
+        let label = StyledCellLabel()
+        label.textContent = urlText
+        label.numberOfLines = 1
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        return label
+    }()
+
     private func setupViews() {
         addSubview(stack)
         stack.addArrangedSubview(title)
-        stack.addArrangedSubview(comment)
+        stack.addArrangedSubview(metadataStack)
+        metadataStack.addArrangedSubview(comment)
+        metadataStack.addArrangedSubview(url)
     }
 
     private func setupConstraints() {

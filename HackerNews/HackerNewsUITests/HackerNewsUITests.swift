@@ -20,16 +20,17 @@ class HackerNewsUITests: XCTestCase {
     func testMainView() {
         app.launch()
 
-        XCTAssertEqual(app.staticTexts.count, 12, "Wrong number of labels")
+        XCTAssertEqual(app.staticTexts.count, 18, "Wrong number of labels")
 
         XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
         XCTAssertStaticText("comment count", with: "108 Comments")
+        XCTAssertStaticText("host name", with: "127.0.0.1")
     }
 
     func testSearch() {
         app.launch()
 
-        XCTAssertEqual(app.staticTexts.count, 12, "Wrong number of labels")
+        XCTAssertEqual(app.staticTexts.count, 18, "Wrong number of labels")
 
         let search = app.searchFields.element
         XCTAssertTrue(search.exists, "Element search doesn't exist")
@@ -45,11 +46,11 @@ class HackerNewsUITests: XCTestCase {
 
         search.buttons.element.tap()
         search.typeText("space")
-        XCTAssertEqual(app.staticTexts.count, 4, "Wrong number of labels")
+        XCTAssertEqual(app.staticTexts.count, 6, "Wrong number of labels")
 
         search.buttons.element.tap()
         search.typeText("the to")
-        XCTAssertEqual(app.staticTexts.count, 4, "Wrong number of labels")
+        XCTAssertEqual(app.staticTexts.count, 6, "Wrong number of labels")
 
         search.buttons.element.tap()
         search.typeText("000")
@@ -57,7 +58,7 @@ class HackerNewsUITests: XCTestCase {
 
         search.buttons.element.tap()
         search.typeText("Gave China")
-        XCTAssertEqual(app.staticTexts.count, 2, "Wrong number of labels")
+        XCTAssertEqual(app.staticTexts.count, 3, "Wrong number of labels")
 
         let title = XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
         title.tap()
@@ -73,6 +74,8 @@ class HackerNewsUITests: XCTestCase {
         app.launch()
 
         let title = XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
+        XCTAssertStaticText("comment count", with: "108 Comments")
+        XCTAssertStaticText("host name", with: "127.0.0.1")
         title.tap()
 
         sleep(1)
@@ -91,7 +94,7 @@ class HackerNewsUITests: XCTestCase {
             """
         }
 
-        XCTAssertEqual(app.staticTexts.count, 14, "Wrong number of labels")
+        XCTAssertEqual(app.staticTexts.count, 15, "Wrong number of labels")
         username.tap()
 
         var textCount = 0
@@ -100,7 +103,7 @@ class HackerNewsUITests: XCTestCase {
                 textCount += 1
             }
         }
-        XCTAssertEqual(textCount, 7, "Wrong number of labels")
+        XCTAssertEqual(textCount, 8, "Wrong number of labels")
     }
 
     @discardableResult

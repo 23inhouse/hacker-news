@@ -12,17 +12,23 @@ class HackerNewsItem {
     static let Empty = HackerNewsItem(title: "", commentCount: 0)
 
     let id: Int
-    let url: String?
+    let url: String
     let title: String
     let author: String
     let score: Int
     let kids: [Int]?
     let commentCount: Int
+
+    func host() -> String {
+        guard let host = URL(string: url) else { return "404.com" }
+        return host.host ?? "404"
+    }
+
     init?(data: Snapshottable?) {
         guard
             let data = data?.value as? [String: Any],
             let id = data[FirebaseConfig.Key.Id] as? Int,
-            let url = data[FirebaseConfig.Key.Url] as? String?,
+            let url = data[FirebaseConfig.Key.Url] as? String,
             let title = data[FirebaseConfig.Key.Title] as? String,
             let author = data[FirebaseConfig.Key.Author] as? String,
             let score = data[FirebaseConfig.Key.Score] as? Int,

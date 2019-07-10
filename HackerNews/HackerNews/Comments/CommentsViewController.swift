@@ -170,6 +170,7 @@ extension CommentsViewController {
 
         cell.titleText = newsItem.title
         cell.commentText = "\(newsItem.commentCount) Comments"
+        cell.urlText = newsItem.host()
 
         return cell
     }

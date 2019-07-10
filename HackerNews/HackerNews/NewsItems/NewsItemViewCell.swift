@@ -17,6 +17,15 @@ class NewsItemViewCell: UITableViewCell {
     var commentText: String = " " {
         didSet { comment.textContent = commentText }
     }
+    var urlText: String = " " {
+        didSet { url.textContent = urlText }
+    }
+
+    lazy var contentConstraints: [NSLayoutConstraint] = [
+        title.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
+        url.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
+        comment.widthAnchor.constraint(greaterThanOrEqualToConstant: 75),
+    ]
 
     private let stack: UIStackView = {
         let stack = UIStackView()
@@ -34,6 +43,14 @@ class NewsItemViewCell: UITableViewCell {
         return label
     }()
 
+    private let metadataStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .equalSpacing
+        return stack
+    }()
+
     lazy var comment: StyledCellLabel = {
         let label = StyledCellLabel()
         label.textContent = commentText
@@ -42,15 +59,27 @@ class NewsItemViewCell: UITableViewCell {
         return label
     }()
 
+    lazy var url: StyledCellLabel = {
+        let label = StyledCellLabel()
+        label.textContent = urlText
+        label.numberOfLines = 1
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.textAlignment = .right
+        return label
+    }()
+
     private func setupViews() {
         addSubview(stack)
         stack.addArrangedSubview(title)
-        stack.addArrangedSubview(comment)
+        stack.addArrangedSubview(metadataStack)
+        metadataStack.addArrangedSubview(comment)
+        metadataStack.addArrangedSubview(url)
     }
 
     private func setupConstraints() {
         stack.constrain(to: self, margin: whitespaceSize)
         stack.spacing = whitespaceSize
+        NSLayoutConstraint.activate(contentConstraints)
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

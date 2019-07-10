@@ -92,6 +92,7 @@ extension NewsItemsViewController: UITableViewDelegate {
         if !newsItem.title.isEmpty {
             cell.titleText = newsItem.title
             cell.commentText = "\(newsItem.commentCount) Comments"
+            cell.urlText = newsItem.host()
         }
 
         return cell
