@@ -112,6 +112,15 @@ extension CommentsViewController: Requestable {
     }
 }
 
+extension CommentsViewController: UIGestureRecognizerDelegate {
+    @objc func handleTap(gestureRecognizer: UIGestureRecognizer) {
+        guard let url = URL(string: newsItem.url) else { return }
+
+        let articleVC = NewsArticleViewController(url)
+        navigationController?.present(articleVC, animated: false, completion: nil)
+    }
+}
+
 extension CommentsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -171,6 +180,12 @@ extension CommentsViewController {
         cell.titleText = newsItem.title
         cell.commentText = "\(newsItem.commentCount) Comments"
         cell.urlText = newsItem.host()
+
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapRecognizer.delegate = self
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.numberOfTouchesRequired = 1
+        cell.addGestureRecognizer(tapRecognizer)
 
         return cell
     }

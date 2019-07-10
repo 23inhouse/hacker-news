@@ -106,6 +106,26 @@ class HackerNewsUITests: XCTestCase {
         XCTAssertEqual(textCount, 8, "Wrong number of labels")
     }
 
+    func testArticle() {
+        app.launch()
+
+        let newsTitle = XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
+        newsTitle.tap()
+
+        sleep(1)
+
+        XCTAssertStaticText("username", with: "simonh")
+
+        let commentsTitle = XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
+        commentsTitle.tap()
+
+        sleep(1)
+
+        app.buttons["Done"].firstMatch.tap()
+
+        XCTAssertStaticText("title", with: "How AMD Gave China the 'Keys to the Kingdom'")
+    }
+
     @discardableResult
     func XCTAssertStaticText(_ type: String, with label: String, file: StaticString = #file, line: UInt = #line) -> XCUIElement {
         let staticTextElement = XCUIApplication().staticTexts[label].firstMatch
