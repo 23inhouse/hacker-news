@@ -64,7 +64,7 @@ class HackerNewsUITests: XCTestCase {
 
         XCTAssertFalse(app.searchFields.element.exists, "Element search shouldn't be visible")
 
-        app.buttons["Back"].firstMatch.tap()
+        app.edgeSwipeLeft()
 
         XCTAssertTrue(app.searchFields.element.exists, "Element search should be visible")
     }
@@ -120,5 +120,17 @@ class HackerNewsUITests: XCTestCase {
 
         let label = contentClosure()
         return XCTAssertStaticText(type, with: label, file: file, line: line)
+    }
+}
+
+extension XCUIElement {
+    public func edgeSwipeLeft() {
+        swipe(from: CGVector(dx: -1, dy: 10), to: CGVector(dx: 10, dy: 10))
+    }
+
+    private func swipe(from startVector: CGVector, to stopVector: CGVector) {
+        let pt1 = coordinate(withNormalizedOffset: startVector)
+        let pt2 = coordinate(withNormalizedOffset: stopVector)
+        pt1.press(forDuration: 0.05, thenDragTo: pt2)
     }
 }

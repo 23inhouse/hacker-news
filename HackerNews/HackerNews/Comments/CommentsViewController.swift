@@ -9,11 +9,16 @@
 import UIKit
 
 class CommentsViewController: UIViewController, Flattenable, Togglable {
-    var commentsTableView: CommentsView { return self.view as! CommentsView }
+    lazy var commentsTableView: CommentsView = CommentsView(reuseIdentifier: reuseIdentifier, reuseHeaderIdentifier: reuseHeaderIdentifier)
     let refreshControl = UIRefreshControl()
 
     private let reuseIdentifier = "commentCell"
     private let reuseHeaderIdentifier = "newsItemCell"
+
+    private lazy var navigationBar: UIView? = {
+        guard let navigationController = navigationController as? MainViewController else { return nil }
+        return navigationController.navigationBar
+    }()
 
     private lazy var searchBar: UIView? = {
         guard let navigationController = navigationController as? MainViewController else { return nil }
@@ -32,7 +37,9 @@ class CommentsViewController: UIViewController, Flattenable, Togglable {
     var flattenedComments = [HackerNewsComment]()
 
     private func setupViews() {
-        self.view = CommentsView(reuseIdentifier: reuseIdentifier, reuseHeaderIdentifier: reuseHeaderIdentifier)
+        view.backgroundColor = .white
+        view.addSubview(commentsTableView)
+        commentsTableView.constrain(to: view.safeAreaLayoutGuide)
 
         commentsTableView.dataSource = self
         commentsTableView.delegate = self
@@ -60,11 +67,11 @@ class CommentsViewController: UIViewController, Flattenable, Togglable {
 
     override func viewWillAppear(_ animated: Bool) {
         searchBar?.endEditing(true)
-        searchBar?.isHidden = true
+        navigationBar?.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        searchBar?.isHidden = false
+        navigationBar?.isHidden = false
     }
 
     init(_ newsItem: HackerNewsItem) {
