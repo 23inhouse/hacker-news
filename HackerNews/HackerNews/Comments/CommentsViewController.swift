@@ -22,7 +22,7 @@ class CommentsViewController: UIViewController, Flattenable, Togglable {
 
     private lazy var firebaseRequest = FirebaseAPI(self)
 
-    private let newsItem: HackerNewsItem!
+    private var newsItem: HackerNewsItem!
 
     var comments = [HackerNewsComment]() {
         didSet {
@@ -95,7 +95,8 @@ extension CommentsViewController: Requestable {
     }
 
     func setData(at index: Int, with data: Datable) {
-        comments[index] = data as! HackerNewsComment
+        let newsItem = data as! HackerNewsItem
+        self.newsItem = newsItem
     }
 
     func reloadRow(at index: Int) {

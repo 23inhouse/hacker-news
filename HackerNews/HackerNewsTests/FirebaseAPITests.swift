@@ -25,6 +25,7 @@ class MockNewsController: Requestable {
 
 class MockCommentsController: Requestable {
     var authors = [String]()
+    var title = ""
 
     func setData(_ data: [Datable]) {
         print("setData")
@@ -34,7 +35,10 @@ class MockCommentsController: Requestable {
         }
     }
 
-    func setData(at index: Int, with data: Datable) { }
+    func setData(at index: Int, with data: Datable) {
+        let data = data as! HackerNewsItem
+        title = data.title
+    }
 }
 
 class FirebaseAPITests: XCTestCase {
@@ -56,6 +60,7 @@ class FirebaseAPITests: XCTestCase {
         let api = FirebaseAPI(requestable, TestFirebaseQuery(async: false))
 
         api.call(3)
+        XCTAssertEqual(requestable.title, "How AMD Gave China the 'Keys to the Kingdom'", "Wrong news item title")
         XCTAssertEqual(requestable.authors.count, 4, "Wrong number of usernames")
         XCTAssertEqual(requestable.authors[0], "sandworm101", "Wrong username")
         XCTAssertEqual(requestable.authors[1], "bifel", "Wrong username")

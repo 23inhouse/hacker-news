@@ -38,6 +38,9 @@ class FirebaseAPI: Firebasable {
         queryable.itemQuery(id) { snap in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
+            guard let newsItem = HackerNewsItem(data: snap!) else { return }
+            self.requestable.setData(at: 0, with: newsItem)
+
             guard let item = HackerNewsItem(data: snap!) else { return }
             self.request(ids: item.kids)
         }
