@@ -167,7 +167,12 @@ extension CommentsViewController: UITableViewDelegate {
             indexPaths.append(indexPath)
         }
 
+        var cellRect = tableView.rectForRow(at: indexPath)
+        cellRect = cellRect.offsetBy(dx: -tableView.contentOffset.x, dy: -tableView.contentOffset.y)
         tableView.reloadRows(at: indexPaths, with: .fade)
+        if cellRect.minY < 5 {
+            tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top, animated: false)
+        }
     }
 }
 
