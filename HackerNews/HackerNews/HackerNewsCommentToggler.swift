@@ -8,47 +8,40 @@
 
 import Foundation
 
-protocol Togglable {
-    var flattenedComments: [HackerNewsComment] { get }
-}
-
 struct HackerNewsCommentToggler {
     let togglable: Togglable
 
-    @discardableResult
-    func toggledComments(at index: Int, closure: ((Int) -> Void)? = nil) -> [HackerNewsComment] {
-        var toggledComments = togglable.flattenedComments
+    func toggleComments(at index: Int) -> [HackerNewsComment] {
+        var flattenedComments = togglable.flattenedComments
 
-        var toggledParentComment = toggledComments[index]
-        toggledParentComment.isFolded.toggle()
-        toggledComments[index] = toggledParentComment
-
-        if let closure = closure {
-            closure(index)
-        }
+        var flattenedParentComment = flattenedComments[index]
+        flattenedParentComment.isFolded.toggle()
+        flattenedComments[index] = flattenedParentComment
 
         var parentIdentifiers = [Int]()
-        parentIdentifiers.append(toggledParentComment.identifier)
+        parentIdentifiers.append(flattenedParentComment.identifier)
 
-        for (index, comment) in toggledComments.enumerated() {
+        for (index, comment) in flattenedComments.enumerated() {
             guard let parentIdentifier = comment.parentIdentifier else { continue }
 
-            guard parentIdentifiers.contains(parentIdentifier) else { continue }
-            parentIdentifiers.append(comment.identifier)
-
             var toggledComment = comment
-            toggledComment.isHidden = toggledParentComment.isFolded
-            if toggledParentComment.isFolded == false {
-                toggledComment.isFolded = false
-            }
-            toggledComments[index] = toggledComment
 
-            if let closure = closure {
-                closure(index)
+            if parentIdentifiers.contains(parentIdentifier) {
+                parentIdentifiers.append(comment.identifier)
+
+                toggledComment.isHidden = flattenedParentComment.isFolded
+                if flattenedParentComment.isFolded == false {
+                    toggledComment.isFolded = false
+                }
+                flattenedComments[index] = toggledComment
             }
         }
 
-        return toggledComments
+        return flattenedComments
+    }
+
+    func toggledComments() -> [HackerNewsComment] {
+        return togglable.flattenedComments.filter { comment in !comment.isHidden }
     }
 
     init(_ togglable: Togglable) {

@@ -11,9 +11,15 @@ import XCTest
 
 struct MockTogglable: Togglable {
     var flattenedComments: [HackerNewsComment]
+    var toggledComments: [HackerNewsComment]
 
     struct MockFlattenable: Flattenable {
         var comments: [HackerNewsComment]
+    }
+
+    init(flattenedComments: [HackerNewsComment]) {
+        self.flattenedComments = flattenedComments
+        self.toggledComments = flattenedComments
     }
 }
 
@@ -41,24 +47,35 @@ class HackerNewsCommentTogglerTests: XCTestCase {
 
     func testToggledComments() {
         let flattenable = MockTogglable.MockFlattenable(comments: comments)
-        let flattenComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
-        let togglable = MockTogglable(flattenedComments: flattenComments)
+        let flattenedComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
+        var togglable = MockTogglable(flattenedComments: flattenedComments)
         let toggler = HackerNewsCommentToggler(togglable)
 
-        let toggledComments = toggler.toggledComments(at: Int.random(in: 0 ..< flattenComments.count))
-        XCTAssertEqual(toggledComments.count, 8, "Wrong number of toggled comments")
+        togglable.flattenedComments = toggler.toggleComments(at: Int.random(in: 0 ..< flattenedComments.count))
+        XCTAssertEqual(togglable.flattenedComments.count, 8, "Wrong number of toggled comments")
+    }
+
+    func testToggleComments() {
+        let flattenable = MockTogglable.MockFlattenable(comments: comments)
+        let flattenedComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
+        var togglable = MockTogglable(flattenedComments: flattenedComments)
+        let toggler = HackerNewsCommentToggler(togglable)
+
+        togglable.flattenedComments = toggler.toggleComments(at: 0)
+        let toggledComments = HackerNewsCommentToggler(togglable).toggledComments()
+        XCTAssertEqual(toggledComments.count, 2, "Wrong number of toggled comments")
     }
 
     func testToggledCommentsFolded() {
         let flattenable = MockTogglable.MockFlattenable(comments: comments)
-        let flattenComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
-        let togglable = MockTogglable(flattenedComments: flattenComments)
+        var flattenedComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
+        let togglable = MockTogglable(flattenedComments: flattenedComments)
         let toggler = HackerNewsCommentToggler(togglable)
 
-        for index in Array(0 ..< flattenComments.count) {
-            let toggledComments = toggler.toggledComments(at: index)
+        for index in Array(0 ..< flattenedComments.count) {
+            flattenedComments = toggler.toggleComments(at: index)
 
-            for (i, comment) in toggledComments.enumerated() {
+            for (i, comment) in flattenedComments.enumerated() {
                 XCTAssertEqual(comment.isFolded, i == index, "Wrong isFolded value for comment #\(index)")
             }
         }
@@ -66,8 +83,8 @@ class HackerNewsCommentTogglerTests: XCTestCase {
 
     func testToggledCommentsHiddenChildren() {
         let flattenable = MockTogglable.MockFlattenable(comments: comments)
-        let flattenComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
-        let togglable = MockTogglable(flattenedComments: flattenComments)
+        var flattenedComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
+        let togglable = MockTogglable(flattenedComments: flattenedComments)
         let toggler = HackerNewsCommentToggler(togglable)
 
         let expectationOfHiddenChildren: [[Int]] = [
@@ -82,9 +99,9 @@ class HackerNewsCommentTogglerTests: XCTestCase {
         ]
 
         for (index, expectatedHidden) in expectationOfHiddenChildren.enumerated() {
-            let toggledComments = toggler.toggledComments(at: index)
+            flattenedComments = toggler.toggleComments(at: index)
 
-            for (i, comment) in toggledComments.enumerated() {
+            for (i, comment) in flattenedComments.enumerated() {
                 XCTAssertEqual(comment.isHidden, expectatedHidden.contains(i), "Wrong isHidden value for comment #\(index)")
             }
         }
@@ -92,13 +109,13 @@ class HackerNewsCommentTogglerTests: XCTestCase {
 
     func testToggledCommentsUnfoldingNestedChildren() {
         let flattenable = MockTogglable.MockFlattenable(comments: comments)
-        let flattenComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
-        var togglable = MockTogglable(flattenedComments: flattenComments)
+        let flattenedComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
+        var togglable = MockTogglable(flattenedComments: flattenedComments)
 
         // fold childer befor parents
-        togglable.flattenedComments = HackerNewsCommentToggler(togglable).toggledComments(at: 2) // fold child of 1
-        togglable.flattenedComments = HackerNewsCommentToggler(togglable).toggledComments(at: 1) // fold child of 0
-        togglable.flattenedComments = HackerNewsCommentToggler(togglable).toggledComments(at: 0) // fold 0
+        togglable.flattenedComments = HackerNewsCommentToggler(togglable).toggleComments(at: 2) // fold child of 1
+        togglable.flattenedComments = HackerNewsCommentToggler(togglable).toggleComments(at: 1) // fold child of 0
+        togglable.flattenedComments = HackerNewsCommentToggler(togglable).toggleComments(at: 0) // fold 0
 
         for i in [0, 1, 2] {
             let comment = togglable.flattenedComments[i]
@@ -111,22 +128,10 @@ class HackerNewsCommentTogglerTests: XCTestCase {
         }
 
         // unfold top level parent
-        togglable.flattenedComments = HackerNewsCommentToggler(togglable).toggledComments(at: 0) // unfold 0
+        togglable.flattenedComments = HackerNewsCommentToggler(togglable).toggleComments(at: 0) // unfold 0
 
         for (i, comment) in togglable.flattenedComments.enumerated() {
             XCTAssertFalse(comment.isFolded, "Wrong isFolded value for comment #\(i)")
         }
-    }
-
-    func testToggledCommentsCallClosureForAllNestedChildren() {
-        let flattenable = MockTogglable.MockFlattenable(comments: comments)
-        let flattenComments = HackerNewsCommentFlattener(flattenable).flattenedComments()
-        let togglable = MockTogglable(flattenedComments: flattenComments)
-
-        var indexes = [Int]()
-
-        HackerNewsCommentToggler(togglable).toggledComments(at: 1) { index in indexes.append(index) }
-
-        XCTAssertEqual(indexes, [1, 2, 3], "Wrong output from closure")
     }
 }

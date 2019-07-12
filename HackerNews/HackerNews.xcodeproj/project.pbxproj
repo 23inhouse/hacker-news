@@ -35,6 +35,8 @@
 		B549F00722CA4EA40012EE44 /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549F00622CA4EA40012EE44 /* DateTests.swift */; };
 		B549F00922CA4EB00012EE44 /* IntTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549F00822CA4EB00012EE44 /* IntTests.swift */; };
 		B579042A22CFA81A0067B2B0 /* Snapshottable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B579042922CFA81A0067B2B0 /* Snapshottable.swift */; };
+		B57B84BB22D9F22B007C676C /* HackerNewsCommentIndexConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57B84BA22D9F22B007C676C /* HackerNewsCommentIndexConverter.swift */; };
+		B57B84BD22D9F24C007C676C /* Togglable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57B84BC22D9F24C007C676C /* Togglable.swift */; };
 		B58F361E22CF703D00B4C019 /* Queryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F361D22CF703D00B4C019 /* Queryable.swift */; };
 		B58F362022CF81E000B4C019 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F361F22CF81E000B4C019 /* FirebaseAPI.swift */; };
 		B5A6BEBE22CA0E7300BE5E28 /* HackerNewsCommentToggler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A6BEBD22CA0E7300BE5E28 /* HackerNewsCommentToggler.swift */; };
@@ -110,6 +112,8 @@
 		B549F00622CA4EA40012EE44 /* DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
 		B549F00822CA4EB00012EE44 /* IntTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntTests.swift; sourceTree = "<group>"; };
 		B579042922CFA81A0067B2B0 /* Snapshottable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshottable.swift; sourceTree = "<group>"; };
+		B57B84BA22D9F22B007C676C /* HackerNewsCommentIndexConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsCommentIndexConverter.swift; sourceTree = "<group>"; };
+		B57B84BC22D9F24C007C676C /* Togglable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Togglable.swift; sourceTree = "<group>"; };
 		B58F361D22CF703D00B4C019 /* Queryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queryable.swift; sourceTree = "<group>"; };
 		B58F361F22CF81E000B4C019 /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
 		B5A6BEBD22CA0E7300BE5E28 /* HackerNewsCommentToggler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsCommentToggler.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 				B58F361D22CF703D00B4C019 /* Queryable.swift */,
 				B50D7D9622CCE30D001F3DD9 /* Requestable.swift */,
 				B579042922CFA81A0067B2B0 /* Snapshottable.swift */,
+				B57B84BC22D9F24C007C676C /* Togglable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				B5FFF89322CE0F71006A16A2 /* HackerNewsCommentBridge.swift */,
 				B5FA0A2E22C9083B00AF4AEE /* HackerNewsCommentFlattener.swift */,
 				B5FFF89922CE17C3006A16A2 /* HackerNewsCommentFormatter.swift */,
+				B57B84BA22D9F22B007C676C /* HackerNewsCommentIndexConverter.swift */,
 				B5A6BEBD22CA0E7300BE5E28 /* HackerNewsCommentToggler.swift */,
 				B5FFF89522CE0FCE006A16A2 /* HackerNewsCommentsFactory.swift */,
 				B534FE0C22C79DB8000B125E /* HackerNewsFilter.swift */,
@@ -543,6 +549,7 @@
 				B534FD8A22C4D4DE000B125E /* NewsItemsViewController.swift in Sources */,
 				B58F362022CF81E000B4C019 /* FirebaseAPI.swift in Sources */,
 				B534FDFD22C63835000B125E /* NewsItemsView.swift in Sources */,
+				B57B84BD22D9F24C007C676C /* Togglable.swift in Sources */,
 				B534FD8822C4D4DE000B125E /* AppDelegate.swift in Sources */,
 				B534FDF922C62A04000B125E /* UIView+constraints.swift in Sources */,
 				B5FFF89622CE0FCE006A16A2 /* HackerNewsCommentsFactory.swift in Sources */,
@@ -550,6 +557,7 @@
 				B5FA0A2F22C9083B00AF4AEE /* HackerNewsCommentFlattener.swift in Sources */,
 				B58F361E22CF703D00B4C019 /* Queryable.swift in Sources */,
 				B534FE0322C69D34000B125E /* StyledCellLabel.swift in Sources */,
+				B57B84BB22D9F22B007C676C /* HackerNewsCommentIndexConverter.swift in Sources */,
 				B534FE0D22C79DB8000B125E /* HackerNewsFilter.swift in Sources */,
 				B50D7D9B22CCE32D001F3DD9 /* Firebasable.swift in Sources */,
 				B5CAA4AA22D616AE008C00CA /* NewsArticleViewController.swift in Sources */,

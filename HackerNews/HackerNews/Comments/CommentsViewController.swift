@@ -32,9 +32,11 @@ class CommentsViewController: UIViewController, Flattenable, Togglable {
     var comments = [HackerNewsComment]() {
         didSet {
             flattenedComments = HackerNewsCommentFlattener(self).flattenedComments()
+            toggledComments = flattenedComments
         }
     }
     var flattenedComments = [HackerNewsComment]()
+    var toggledComments = [HackerNewsComment]()
 
     private func setupViews() {
         view.backgroundColor = .white
@@ -124,7 +126,7 @@ extension CommentsViewController: UIGestureRecognizerDelegate {
 extension CommentsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return flattenedComments.count
+        return toggledComments.count
     }
 }
 
@@ -134,7 +136,7 @@ extension CommentsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! CommentViewCell
 
-        let comment = flattenedComments[indexPath.row]
+        let comment = toggledComments[indexPath.row]
         cell.usernameText = comment.username
         cell.timestampDate = comment.timestamp
         cell.commentText = comment.body
@@ -149,8 +151,7 @@ extension CommentsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard !flattenedComments[indexPath.row].isHidden else { return 0 }
-        guard !flattenedComments[indexPath.row].isFolded else { return 40 }
+        guard !toggledComments[indexPath.row].isFolded else { return 40 }
 
         return UITableView.automaticDimension
     }
@@ -160,16 +161,14 @@ extension CommentsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var indexPaths = [IndexPath]()
+        guard let index = HackerNewsCommentIndexConverter(self).convert(from: indexPath.row) else { return }
 
-        flattenedComments = HackerNewsCommentToggler(self).toggledComments(at: indexPath.row) { index in
-            let indexPath = IndexPath(row: index, section: 0)
-            indexPaths.append(indexPath)
-        }
+        flattenedComments = HackerNewsCommentToggler(self).toggleComments(at: index)
+        toggledComments = HackerNewsCommentToggler(self).toggledComments()
 
         var cellRect = tableView.rectForRow(at: indexPath)
         cellRect = cellRect.offsetBy(dx: -tableView.contentOffset.x, dy: -tableView.contentOffset.y)
-        tableView.reloadRows(at: indexPaths, with: .fade)
+        tableView.reloadData()
         if cellRect.minY < 5 {
             tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top, animated: false)
         }

@@ -104,6 +104,10 @@ class HackerNewsUITests: XCTestCase {
             }
         }
         XCTAssertEqual(textCount, 8, "Wrong number of labels")
+
+        username.tap()
+        XCTAssertStaticText("username", with: "bifel")
+        XCTAssertStaticText("username", with: "sandworm101")
     }
 
     func testArticle() {
