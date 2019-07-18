@@ -109,11 +109,6 @@ extension CommentsViewController: Requestable {
         let newsItem = data as! HackerNewsItem
         self.newsItem = newsItem
     }
-
-    func reloadRow(at index: Int) {
-        let indexPath = IndexPath(row: index, section: 0)
-        commentsTableView.reloadRows(at: [indexPath], with: .fade)
-    }
 }
 
 extension CommentsViewController: UIGestureRecognizerDelegate {
