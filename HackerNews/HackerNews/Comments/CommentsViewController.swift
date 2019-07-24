@@ -15,6 +15,8 @@ class CommentsViewController: UIViewController, Flattenable, Togglable {
     private let reuseIdentifier = "commentCell"
     private let reuseHeaderIdentifier = "newsItemCell"
 
+    var cellHeights = [IndexPath: CGFloat]()
+
     private lazy var navigationBar: UIView? = {
         guard let navigationController = navigationController as? MainViewController else { return nil }
         return navigationController.navigationBar
@@ -156,8 +158,14 @@ extension CommentsViewController: UITableViewDelegate {
         return UITableView.automaticDimension
     }
 
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let frame = tableView.rectForRow(at: indexPath)
+
+        self.cellHeights[indexPath] = frame.size.height
+    }
+
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 300
+        return self.cellHeights[indexPath] ?? 300
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
